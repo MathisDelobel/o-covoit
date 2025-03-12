@@ -21,7 +21,7 @@ export const userController = {
 		const email = req.params.email;
 		const user = await User.findOne({ email: email });
 		if (!user) {
-			res.status(404).json({ message: "User not found" });
+			return res.status(404).json({ message: "User not found" });
 		}
 		res.status(200).json(user);
 	},
@@ -30,7 +30,7 @@ export const userController = {
 		const user = new User(req.body);
 		await user.save();
 		if (!user) {
-			res.status(400).json({ message: "User not created" });
+			return res.status(400).json({ message: "User not created" });
 		}
 		res.status(201).json(user);
 	},

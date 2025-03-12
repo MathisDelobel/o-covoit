@@ -1,16 +1,15 @@
 import express from "express";
-import { router } from "./routers/router";
 import { bodySanitizerMiddleware } from "./middlewares/sanitizer";
+import { router } from "./routers/router";
 
-const app = express();
 const PORT = 3000;
 
+const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-
-app.use(router);
 app.use(bodySanitizerMiddleware);
+app.use(router);
 
 app.listen(PORT, () => {
-	console.log(`Server started at http://localhost:${PORT}`);
+	console.log(`Serveur démarré sur http://localhost:${PORT}`);
 });
