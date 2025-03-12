@@ -1,33 +1,20 @@
 services:
 
-  # Nom du service sur le réseau Docker
   main:
     container_name: main
-
-    # Informations pour créer l'image Docker
     build:
-      context: ./main # Chemin du dossier contenant le Dockerfile
-      dockerfile: Dockerfile # Nom du Dockerfile
-
+      context: ./main
+      dockerfile: Dockerfile
     env_file:
       - .env
-    # Volume -> répertoire (et donc fichiers) en local utilisé par
-    # le conteneur lors de l'exécution.
     volumes:
-      # On mappe le dossier local ./main sur le dossier /app du conteneur :
-      # Permet de voir les modifications du code en temps réel sans avoir à reconstruire l'image.
       - ./main:/app
       - /app/node_modules
-
-    # On mappe un port local (gauche) au port du conteneur (droite) sur lequel tourne le service
     ports:
       - "3000:3000"
-
     depends_on:
       - api-users
       - users-db
-      
-
 
   api-users:
     container_name: api-users
@@ -44,7 +31,6 @@ services:
     depends_on:
       - users-db
 
-
   users-db:
     container_name: users-db
     image: mongo:latest
@@ -55,26 +41,53 @@ services:
     environment:
       - MONGO_INITDB_DATABASE=${MONGO_INITDB_DATABASE_USERS}
     volumes:
-      # On va utiliser un fichier de seed pour créer la collection et la remplir
       - ./api-users/data/seeding.js:/docker-entrypoint-initdb.d/seeding.js
-      # On stocke les données de la DB
       - users-data:/data/db
 
-  auth-service:
-    container_name: auth-service
+  authentication-service:
+    container_name: authentication-service
     build:
-      context: ./auth-service
+      context: ./authentication-service
       dockerfile: Dockerfile
     env_file:
-      - ./auth-service/.env
+      - .env
     volumes:
-      - ./auth-service:/app
+      - ./authentication-service:/app
       - /app/node_modules
     ports:
       - "3002:3000"
     depends_on:
       - users-db
 
+  authorization-service:
+    container_name: authorization-service
+    build:
+      context: ./authorization-service
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    volumes:
+      - ./authorization-service:/app
+      - /app/node_modules
+    ports:
+      - "3003:3000"
+    depends_on:
+      - authentication-service
+
+  acl-service:
+    container_name: acl-service
+    build:
+      context: ./acl-service
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    volumes:
+      - ./acl-service:/app
+      - /app/node_modules
+    ports:
+      - "3004:3000"
+    depends_on:
+      - authorization-service
 
 volumes:
   users-data:
