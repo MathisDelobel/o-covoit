@@ -8,7 +8,7 @@ const PORT = 3000;
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-app.use("/api/users", router);
+app.use(router);
 app.use(bodySanitizerMiddleware);
 
 app.listen(PORT, () => {

@@ -6,7 +6,7 @@ const apiUsersUrl = process.env.API_USERS_SERVICE_URL as string;
 export const mainController = {
 	home: async (req: Request, res: Response) => {
 		try {
-			const response = await axios.get(`${apiUsersUrl}/api/users`);
+			const response = await axios.get(`${apiUsersUrl}`);
 
 			res.render("home", { users: response.data });
 		} catch (error) {
