@@ -60,6 +60,21 @@ services:
       # On stocke les données de la DB
       - users-data:/data/db
 
+  auth-service:
+    container_name: auth-service
+    build:
+      context: ./auth-service
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    volumes:
+      - ./auth-service:/app
+      - /app/node_modules
+    ports:
+      - "3002:3000"
+    depends_on:
+      - users-db
+
 
 volumes:
   users-data:

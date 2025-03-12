@@ -14,4 +14,8 @@ export const authController = {
 
 		res.redirect("/");
 	},
+
+	showLogin: async (req: Request, res: Response) => {
+		res.render("login");
+	},
 };
