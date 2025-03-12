@@ -1,21 +1,16 @@
 import express from "express";
-import type { Request, Response } from "express";
-import User from "./models/User";
+import { router } from "./routers/router";
+import { bodySanitizerMiddleware } from "./middlewares/sanitizer";
+
 const app = express();
 const PORT = 3000;
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+app.use("/api/users", router);
+app.use(bodySanitizerMiddleware);
+
 app.listen(PORT, () => {
 	console.log(`Server started at http://localhost:${PORT}`);
-});
-
-app.get("/", async (req: Request, res: Response) => {
-	try {
-		const users = await User.find();
-		res.status(200).json(users);
-	} catch (err) {
-		res.status(500).json({ message: err, service: "api-users" });
-	}
 });

@@ -1,6 +1,6 @@
 // Express => framework NodeJS pour la mise en place de serveur HTTP
 import express from "express";
-import { mainController } from "./src/controllers/mainController";
+import { router } from "./src/router/router";
 
 // On définit le port sur lequel le serveur va écouter
 //     => devra à terme être dans une variable d'environnement
@@ -10,8 +10,9 @@ const PORT = 3000;
 const app = express();
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-app.get("/", mainController.home);
+app.use(router);
 
 // Faite en sorte que le serveur écoute le PORT défini
 app.listen(PORT, () => {

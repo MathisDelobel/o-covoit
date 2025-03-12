@@ -6,7 +6,8 @@ const apiUsersUrl = process.env.API_USERS_SERVICE_URL as string;
 export const mainController = {
 	home: async (req: Request, res: Response) => {
 		try {
-			const response = await axios.get(apiUsersUrl);
+			const response = await axios.get(`${apiUsersUrl}/api/users`);
+
 			res.status(200).json(response.data);
 		} catch (error) {
 			res.status(500).json({ message: error, service: "main" });
