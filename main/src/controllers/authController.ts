@@ -4,17 +4,14 @@ import type { Request, Response } from "express";
 const apiUsersUrl = process.env.API_USERS_SERVICE_URL as string;
 
 export const authController = {
-	login: async (req: Request, res: Response) => {
-		try {
-			const response = await axios.post(`${apiUsersUrl}/login`, req.body, {
-				headers: {
-					Accept: "application/json",
-					"Content-Type": "application/json",
-				},
-			});
-			res.status(200).json(response.data);
-		} catch (error) {
-			res.status(500).json({ message: error, service: "main" });
-		}
+	showRegister: async (req: Request, res: Response) => {
+		res.render("register");
+	},
+	register: async (req: Request, res: Response) => {
+		const response = await axios.post(`${apiUsersUrl}/api/users`, req.body);
+		const newUser = response.data;
+		console.log(newUser);
+
+		res.redirect("/");
 	},
 };

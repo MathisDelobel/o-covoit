@@ -8,7 +8,7 @@ export const mainController = {
 		try {
 			const response = await axios.get(`${apiUsersUrl}/api/users`);
 
-			res.status(200).json(response.data);
+			res.render("home", { users: response.data });
 		} catch (error) {
 			res.status(500).json({ message: error, service: "main" });
 		}

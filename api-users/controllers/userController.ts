@@ -25,4 +25,13 @@ export const userController = {
 		}
 		res.status(200).json(user);
 	},
+
+	createUser: async (req: Request, res: Response) => {
+		const user = new User(req.body);
+		await user.save();
+		if (!user) {
+			res.status(400).json({ message: "User not created" });
+		}
+		res.status(201).json(user);
+	},
 };
