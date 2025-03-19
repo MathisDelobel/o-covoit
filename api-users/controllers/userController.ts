@@ -1,5 +1,6 @@
 import type { Request, Response } from "express";
 import User from "../models/User";
+import { error } from "console";
 
 export const userController = {
 	/**
@@ -21,7 +22,7 @@ export const userController = {
 		const email = req.params.email;
 		const user = await User.findOne({ email: email });
 		if (!user) {
-			return res.status(404).json({ message: "User not found" });
+			return res.status(404).json({ error: "User not found" });
 		}
 		res.status(200).json(user);
 	},
@@ -30,7 +31,7 @@ export const userController = {
 		const user = new User(req.body);
 		await user.save();
 		if (!user) {
-			return res.status(400).json({ message: "User not created" });
+			return res.status(400).json({ error: "User not created" });
 		}
 		res.status(201).json(user);
 	},

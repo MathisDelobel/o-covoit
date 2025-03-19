@@ -15,12 +15,13 @@ export const mainController = {
 	login: async (req: Request, res: Response) => {
 		const { email, password } = req.body;
 
-		// Vérifie en base de données si on a un user qui correspond à l'email
 		const response = await axios.get(`${apiUsersUrl}/${email}`);
-		const user = response.data;
-		if (!user) {
+
+		if (response.status !== 200) {
 			return res.status(400).json({ message: "Connexion failed" });
 		}
+
+		const user = response.data;
 
 		// Si oui, on vérifie le mot de passe
 		const match = bcrypt.compareSync(password, user.password);
