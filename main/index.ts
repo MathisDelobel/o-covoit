@@ -3,6 +3,8 @@ import express from "express";
 import { router } from "./src/router/router";
 import cookieParser from "cookie-parser";
 import axios from "axios";
+import session from "express-session";
+import flash from "connect-flash";
 
 // On définit le port sur lequel le serveur va écouter
 //     => devra à terme être dans une variable d'environnement
@@ -12,6 +14,15 @@ const aclUrl = process.env.ACL_SERVICE_URL as string;
 
 // On initialise notre application Express
 const app = express();
+
+app.use(
+	session({
+		secret: process.env.SESSION_SECRET || "default_secret",
+		resave: false, // Ne sauvegarde pas la session si elle n'a pas été modifiée
+		saveUninitialized: false, // Ne sauvegarde pas les sessions vides
+	}),
+);
+app.use(flash());
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -24,19 +35,13 @@ app.set("views", "src/views");
 app.use((req, res, next) => {
 	res.locals.auth_token = req.cookies?.auth_token;
 	res.locals.connected_user = req.cookies?.connected_user;
+	res.locals.error = req.flash("error");
+	res.locals.success = req.flash("success");
+	res.locals.info = req.flash("info");
 	next();
 });
 
 // Middleware de vérification des autorisations pour toutes les routes
-// Il faut impérativement le mettre avant nos routes.
-// - On a des routes définies dans le main. On doit vérifier si l'utilisateur a le droit d'accéder à ces routes.
-// - On demande au service ACL si l'utilisateur peut y aller.
-// - Le service ACL sait que telle route est permise à tel et tel rôle.
-// - Il demande donc aux services d'autorisation si le token correspond à un de ces rôles.
-// - Une fois qu'il a chopé les infos, il nous dit oui tu passes ou non tu passes pas.
-// En gros :
-// - Le service ACL sert à dire si un role à accès à une route.
-// - Le service d'autorisation sert à dire si un token correspond à une liste de roles.
 app.use(async (req, res, next) => {
 	try {
 		// On cherche la route correspondante dans le stack
@@ -80,7 +85,7 @@ app.use(async (req, res, next) => {
 			error.response?.data?.error ||
 			"Une erreur est survenue lors de la vérification des autorisations";
 
-		res.status(errorCode).render("home", { error: errorMessage });
+		res.status(errorCode).render("login", { error: errorMessage });
 	}
 });
 

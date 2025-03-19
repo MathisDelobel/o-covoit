@@ -1,4 +1,10 @@
 <%- include('./partials/header.ejs') %>
 
+<% if (error && error.length > 0) { %>
+    <div class="alert alert-danger" style="padding: 2em; background-color: red;">
+        <%= error[0] %>
+    </div>
+<% } %>
+
 
 <%- include('./forms/loginForm.ejs') %>
