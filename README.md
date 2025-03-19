@@ -20,5 +20,5 @@ cd o-covoit
 
 ### 3. Consruire et démarrer les services
 ```bash
-docker compose compose up -d --build
+docker compose up -d --build
 ```
