@@ -31,7 +31,7 @@ app.use(cookieParser());
 app.set("view engine", "ejs");
 app.set("views", "src/views");
 
-// Middleware pour extraire le token et le passer aux vues
+// Middleware pour extraire le token et le passer aux vues et initialiser les flash messages
 app.use((req, res, next) => {
 	res.locals.auth_token = req.cookies?.auth_token;
 	res.locals.connected_user = req.cookies?.connected_user;
@@ -77,15 +77,14 @@ app.use(async (req, res, next) => {
 		if (error.response?.status === 401) {
 			res.clearCookie("auth_token");
 			res.clearCookie("connected_user");
+			req.flash("error", "Veuillez vous connectez");
 			return res.redirect("/login");
 		}
 
 		const errorCode = error.response?.status || 500;
-		const errorMessage =
-			error.response?.data?.error ||
-			"Une erreur est survenue lors de la vérification des autorisations";
+		req.flash(error.response?.data?.error || "error", "Acces non autorisé");
 
-		res.status(errorCode).render("login", { error: errorMessage });
+		res.status(errorCode).redirect("/");
 	}
 });
 
