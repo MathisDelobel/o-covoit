@@ -5,7 +5,7 @@ const apiUsersUrl = process.env.API_USERS_SERVICE_URL as string;
 
 export const mainController = {
 	home: async (req: Request, res: Response) => {
-		res.render("home");
+		res.render('main', { data: { view: 'home' } });
 	},
 	dashboard: async (req: Request, res: Response) => {
 		try {

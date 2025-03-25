@@ -6,7 +6,7 @@ const authenticationServiceUrl = process.env
 
 export const authController = {
 	showRegister: async (req: Request, res: Response) => {
-		res.render("register");
+		res.render("main", { data: { view: "register" } });
 	},
 	register: async (req: Request, res: Response) => {
 		const response = await axios.post(
@@ -25,7 +25,7 @@ export const authController = {
 	},
 
 	showLogin: async (req: Request, res: Response) => {
-		res.render("login");
+		res.render("main", { data: { view: "login" } });
 	},
 	login: async (req: Request, res: Response) => {
 		const response = await axios.post(

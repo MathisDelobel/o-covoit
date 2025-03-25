@@ -1,0 +1,39 @@
+
+<div class="column is-half is-offset-one-quarter">
+    <h2 class="title has-text-centered has-text-white">Créer un Trajet</h2>
+    <div class="box">
+        <form method="POST">
+            <!-- Départ -->
+            <div class="field">
+                <label class="label" for="departure">Départ</label>
+                <div class="control">
+                    <input class="input" type="text" id="departure" name="departure" placeholder="Ville de départ" required>
+                </div>
+            </div>
+
+            <!-- Destination -->
+            <div class="field">
+                <label class="label" for="destination">Destination</label>
+                <div class="control">
+                    <input class="input" type="text" id="destination" name="destination" placeholder="Ville d'arrivée" required>
+                </div>
+            </div>
+
+            <!-- Date -->
+            <div class="field">
+                <label class="label" for="date">Date de départ</label>
+                <div class="control">
+                    <input class="input" type="date" id="date" name="date" required>
+                </div>
+            </div>
+
+            <!-- Recherche -->
+            <div class="field">
+                <div class="control">
+                    <button class="button is-primary is-fullwidth">Rechercher le trajet</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+

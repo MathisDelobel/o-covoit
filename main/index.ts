@@ -30,6 +30,7 @@ app.use(cookieParser());
 
 app.set("view engine", "ejs");
 app.set("views", "src/views");
+app.use(express.static("public"));
 
 // Middleware pour extraire le token et le passer aux vues et initialiser les flash messages
 app.use((req, res, next) => {
