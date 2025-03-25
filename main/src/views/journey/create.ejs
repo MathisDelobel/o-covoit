@@ -1,39 +1,64 @@
 
+
 <div class="column is-half is-offset-one-quarter">
-    <h2 class="title has-text-centered has-text-white">Créer un Trajet</h2>
     <div class="box">
-        <form method="POST">
-            <!-- Départ -->
-            <div class="field">
-                <label class="label" for="departure">Départ</label>
-                <div class="control">
-                    <input class="input" type="text" id="departure" name="departure" placeholder="Ville de départ" required>
+            <h1 class="title has-text-centered">Créer un Trajet</h1>
+            <form action="/create-journey" method="POST">
+                <!-- Départ -->
+                <div class="field">
+                    <label class="label" for="departure">Départ</label>
+                    <div class="control">
+                        <input class="input" type="text" id="departure" name="departure" placeholder="Ville de départ" required>
+                    </div>
                 </div>
-            </div>
 
-            <!-- Destination -->
-            <div class="field">
-                <label class="label" for="destination">Destination</label>
-                <div class="control">
-                    <input class="input" type="text" id="destination" name="destination" placeholder="Ville d'arrivée" required>
+                <!-- Destination -->
+                <div class="field">
+                    <label class="label" for="destination">Destination</label>
+                    <div class="control">
+                        <input class="input" type="text" id="destination" name="destination" placeholder="Ville d'arrivée" required>
+                    </div>
                 </div>
-            </div>
 
-            <!-- Date -->
-            <div class="field">
-                <label class="label" for="date">Date de départ</label>
-                <div class="control">
-                    <input class="input" type="date" id="date" name="date" required>
+                <!-- Date -->
+                <div class="field">
+                    <label class="label" for="date">Date</label>
+                    <div class="control">
+                        <input class="input" type="date" id="date" name="date" required>
+                    </div>
                 </div>
-            </div>
 
-            <!-- Recherche -->
-            <div class="field">
-                <div class="control">
-                    <button class="button is-primary is-fullwidth">Rechercher le trajet</button>
+                <!-- Heure de départ -->
+                <div class="field">
+                    <label class="label" for="time">Heure de départ</label>
+                    <div class="control">
+                        <input class="input" type="time" id="time" name="time" required>
+                    </div>
                 </div>
-            </div>
-        </form>
+
+                <!-- Durée -->
+                <div class="field">
+                    <label class="label" for="duration">Durée (en minutes)</label>
+                    <div class="control">
+                        <input class="input" type="number" id="duration" name="duration" placeholder="Ex: 120" required>
+                    </div>
+                </div>
+
+                <!-- Prix -->
+                <div class="field">
+                    <label class="label" for="price">Prix (€)</label>
+                    <div class="control">
+                        <input class="input" type="number" id="price" name="price" placeholder="Ex: 15" step="0.01" required>
+                    </div>
+                </div>
+
+                <!-- Bouton de soumission -->
+                <div class="field">
+                    <div class="control">
+                        <button class="button is-primary is-fullwidth">Créer le trajet</button>
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
-</div>
 
