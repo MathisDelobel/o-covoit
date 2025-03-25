@@ -6,6 +6,8 @@ export const router = Router();
 
 router.get("/", mainController.home);
 
+router.get("/admin/dashboard", mainController.dashboard);
+
 router.get("/register", authController.showRegister);
 router.post("/register", authController.register);
 

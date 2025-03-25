@@ -17,6 +17,10 @@ export const authController = {
 			},
 		);
 
+		const { token, user } = response.data;
+		res.cookie("auth_token", token);
+		res.cookie("connected_user", user);
+
 		res.redirect("/");
 	},
 
@@ -47,7 +51,7 @@ export const authController = {
 	logout: async (req: Request, res: Response) => {
 		res.clearCookie("auth_token");
 		res.clearCookie("connected_user");
-
+		req.flash("info", "Vous êtes déconnecté");
 		res.redirect("/");
 	},
 };

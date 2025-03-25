@@ -1,21 +1,10 @@
 <%- include('./partials/header.ejs') %>
 
-<div class="container">
-  <h1>Home</h1>
-  <p>Welcome to the home page!</p>
- 
-  <% for(const user of users) { %>
-    <ul>
-    <li><%= user.firstname  %></li>
-    <li><%= user.lastname  %></li>
-    <li><%= user.email  %></li>
-    <li><%= user.password  %></li>
-    <li><%= user.role_id  %></li>
-    </ul>
-  <% } %>
+<div>
+  HomePage
 </div>
 
 <% if (connected_user) { %>
-    <a href="/logout">Se deconnecter</a>
- <pre><%= JSON.stringify(connected_user)  %></pre>
+  <a href="/logout">Se deconnecter</a>
+<pre><%= JSON.stringify(connected_user)  %></pre>
 <% } %>
