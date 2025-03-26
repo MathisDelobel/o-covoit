@@ -1,12 +1,36 @@
-<%- include('./partials/header.ejs') %>
 
-<% if (error && error.length > 0) { %>
-    <div class="alert alert-danger" style="padding: 2em; background-color: red;">
-        <%= error[0] %>
+<div class="column is-half is-offset-one-quarter">
+    <div class="box">
+    <h1 class="title has-text-centered">Connexion</h1>
+    <form method="POST">
+      
+        <div class="field">
+            <label for="email" class="label">Email</label>
+            <div class="control has-icons-left">
+                <input class="input" type="text" name="email" placeholder="Votre email" required>
+                <span class="icon is-small is-left">
+                        <i class="fas fa-user"></i>
+                    </span>
+            </div>
+        </div>
+
+   
+        <div class="field">
+            <label for="password" class="label">Mot de passe</label>
+            <div class="control has-icons-left">
+                <input class="input" type="password" name="password" placeholder="Votre mot de passe" required>
+                <span class="icon is-small is-left">
+                        <i class="fas fa-lock"></i>
+                    </span>
+            </div>
+        </div>
+
+        
+        <div class="field">
+            <div class="control">
+                <button class="button is-primary is-fullwidth">Se connecter</button>
+            </div>
+        </div>
+    </form>
     </div>
-<% } %>
-
-
-<%- include('./forms/loginForm.ejs') %>
-
-<button><a href="/register">S'inscrire</a></button>
+</div>

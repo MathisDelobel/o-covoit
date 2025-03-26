@@ -1,10 +1,12 @@
-<%- include('./partials/header.ejs') %>
 
-<div>
-  HomePage
+<div class="container has-text-centered">
+          <h2 class="title has-text-white">Trouvez ou proposez un trajet facilement !</h1>
+          <h3 class="subtitle has-text-white">Voyagez moins cher et de façon plus écologique.</h2>
+          <div class="buttons is-centered">
+              <a href="/journey/find" class="button is-primary">Chercher un trajet</a>
+              <a href="/journey/create" class="button is-light">Créer un trajet</a>
+          </div>
 </div>
 
-<% if (connected_user) { %>
-  <a href="/logout">Se deconnecter</a>
-<pre><%= JSON.stringify(connected_user)  %></pre>
-<% } %>
+
+

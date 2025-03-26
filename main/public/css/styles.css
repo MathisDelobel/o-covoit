@@ -1,0 +1,6 @@
+.hero {
+	background: url("/images/bgHomePage.jpg");
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center;
+}

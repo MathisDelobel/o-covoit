@@ -6,8 +6,9 @@ const authenticationServiceUrl = process.env
 
 export const authController = {
 	showRegister: async (req: Request, res: Response) => {
-		res.render("register");
+		res.render("main", { data: { view: "register" } });
 	},
+	//TODO faire le register
 	register: async (req: Request, res: Response) => {
 		const response = await axios.post(
 			`${authenticationServiceUrl}/register`,
@@ -18,6 +19,15 @@ export const authController = {
 		);
 
 		const { token, user } = response.data;
+		if (!token) {
+			req.flash(
+				"error",
+				response.data.message || "Erreur lors de l'inscription",
+			);
+
+			return res.redirect("/register");
+		}
+		req.flash("success", "Création de compte réussie");
 		res.cookie("auth_token", token);
 		res.cookie("connected_user", user);
 
@@ -25,23 +35,31 @@ export const authController = {
 	},
 
 	showLogin: async (req: Request, res: Response) => {
-		res.render("login");
+		res.render("main", { data: { view: "login" } });
 	},
+
+	// TODO gérer avec le bon utilisateur mais pas l bon mot de passe
+	// gérer les messages flash
+
 	login: async (req: Request, res: Response) => {
 		const response = await axios.post(
 			`${authenticationServiceUrl}/login`,
 			req.body,
-			{
-				validateStatus: (status) => status < 500, // Considère les codes 400 comme non bloquants
-			},
+			{ validateStatus: (status) => status < 500 },
 		);
 
-		if (response.status !== 201) {
-			req.flash("error", response.data.message || "Connexion failed");
+		const { token, user } = response.data;
+
+		if (!token) {
+			req.flash(
+				"error",
+				response.data.message || "Erreur lors de la connexion",
+			);
+
 			return res.redirect("/login");
 		}
 
-		const { token, user } = response.data;
+		req.flash("success", "Vous êtes maintenant connecté");
 		res.cookie("auth_token", token);
 		res.cookie("connected_user", user);
 

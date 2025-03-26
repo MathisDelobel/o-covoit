@@ -1,7 +1,6 @@
 import express from "express";
 import { bodySanitizerMiddleware } from "./middlewares/sanitizer";
 import { router } from "./routers/router";
-import axios from "axios";
 
 const PORT = 3000;
 

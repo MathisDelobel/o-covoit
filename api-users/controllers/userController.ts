@@ -1,6 +1,5 @@
 import type { Request, Response } from "express";
 import User from "../models/User";
-import { error } from "console";
 
 export const userController = {
 	/**

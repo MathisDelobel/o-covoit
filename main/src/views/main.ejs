@@ -1,0 +1,17 @@
+<%- include('./partials/header.ejs') %>
+<%- include('./partials/nav.ejs') %>
+
+<section class="hero is-fullheight-with-navbar">
+        <% if ( error ) { %>
+        <%- include("partials/error.ejs") %>
+        <% } %>
+    <div class="hero-body">
+        
+        <% if ( data.view ) { %>
+        <%- include(data.view + ".ejs") %>
+        <% } %>
+    </div>
+</section>
+
+
+<%- include('./partials/footer.ejs') %>

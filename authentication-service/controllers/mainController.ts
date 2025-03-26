@@ -13,37 +13,39 @@ function createToken(data: { id: string; role_id: number }) {
 
 export const mainController = {
 	login: async (req: Request, res: Response) => {
-		const { email, password } = req.body;
+		try {
+			const { email, password } = req.body;
 
-		const response = await axios.get(`${apiUsersUrl}/${email}`);
+			const response = await axios.get(`${apiUsersUrl}/${email}`);
 
-		if (response.status !== 200) {
-			return res.status(400).json({ message: "Connexion failed" });
+			const user = response.data;
+
+			const match = bcrypt.compareSync(password, user.password);
+			if (!match) {
+				return res.status(400).json({ message: "Invalid credentials" });
+			}
+
+			const token = createToken({ id: user._id, role_id: user.role_id });
+
+			return res.status(201).json({ token, user });
+		} catch (error: any) {
+			if (error.response.status === 404) {
+				console.error(error.response);
+				return res.status(400).json({ message: "Invalid credentials" });
+			}
+
+			throw error;
 		}
-
-		const user = response.data;
-
-		// Si oui, on vérifie le mot de passe
-		const match = bcrypt.compareSync(password, user.password);
-		if (!match) {
-			return res.status(400).json({ message: "Connexion failed" });
-		}
-
-		// Si le mot de passe est bon, on génère un token JWT
-		const token = createToken({ id: user._id, role_id: user.role_id });
-
-		// On renvoie le token JWT
-		res.status(201).json({ token, user });
 	},
 
 	register: async (req: Request, res: Response) => {
 		const { firstname, lastname, email, password, role_id } = req.body;
+		console.log(req.body);
 
 		// Validation des données
 		if (!firstname || !lastname || !email || !password || !role_id) {
 			return res.status(400).json({
-				message:
-					"Please provide all required fields: firstname, lastname, email, password, role_id",
+				message: "Please provide all required fields",
 			});
 		}
 
