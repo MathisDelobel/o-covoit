@@ -39,12 +39,12 @@ export const mainController = {
 
 	register: async (req: Request, res: Response) => {
 		const { firstname, lastname, email, password, role_id } = req.body;
+		console.log(req.body);
 
 		// Validation des données
 		if (!firstname || !lastname || !email || !password || !role_id) {
 			return res.status(400).json({
-				message:
-					"Please provide all required fields: firstname, lastname, email, password, role_id",
+				message: "Please provide all required fields",
 			});
 		}
 

@@ -19,6 +19,15 @@ export const authController = {
 		);
 
 		const { token, user } = response.data;
+		if (!token) {
+			req.flash(
+				"error",
+				response.data.message || "Erreur lors de l'inscription",
+			);
+
+			return res.redirect("/register");
+		}
+		req.flash("success", "Création de compte réussie");
 		res.cookie("auth_token", token);
 		res.cookie("connected_user", user);
 
@@ -42,10 +51,15 @@ export const authController = {
 		const { token, user } = response.data;
 
 		if (!token) {
-			req.flash("error", response.data.message || "Connexion failed");
+			req.flash(
+				"error",
+				response.data.message || "Erreur lors de la connexion",
+			);
+
 			return res.redirect("/login");
 		}
 
+		req.flash("success", "Vous êtes maintenant connecté");
 		res.cookie("auth_token", token);
 		res.cookie("connected_user", user);
 

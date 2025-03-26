@@ -2,11 +2,11 @@
 <%- include('./partials/nav.ejs') %>
 
 <section class="hero is-fullheight-with-navbar">
-
-    <div class="hero-body">
-        <% if ( data.error ) { %>
-        <%- include("error.ejs") %>
+        <% if ( error ) { %>
+        <%- include("partials/error.ejs") %>
         <% } %>
+    <div class="hero-body">
+        
         <% if ( data.view ) { %>
         <%- include(data.view + ".ejs") %>
         <% } %>
