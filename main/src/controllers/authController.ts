@@ -8,7 +8,7 @@ export const authController = {
 	showRegister: async (req: Request, res: Response) => {
 		res.render("main", { data: { view: "register" } });
 	},
-	//TODO faire le register
+
 	register: async (req: Request, res: Response) => {
 		const response = await axios.post(
 			`${authenticationServiceUrl}/register`,
@@ -38,9 +38,6 @@ export const authController = {
 		res.render("main", { data: { view: "login" } });
 	},
 
-	// TODO gérer avec le bon utilisateur mais pas l bon mot de passe
-	// gérer les messages flash
-
 	login: async (req: Request, res: Response) => {
 		const response = await axios.post(
 			`${authenticationServiceUrl}/login`,
@@ -63,7 +60,10 @@ export const authController = {
 		res.cookie("auth_token", token);
 		res.cookie("connected_user", user);
 
-		res.redirect("/");
+		const redirectUrl = req.cookies.previousUrl || "/";
+		res.clearCookie("previousUrl"); // Supprime après redirection
+
+		res.redirect(redirectUrl);
 	},
 
 	logout: async (req: Request, res: Response) => {
