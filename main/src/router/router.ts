@@ -2,13 +2,14 @@ import { Router } from "express";
 import { mainController } from "../controllers/mainController";
 import { authController } from "../controllers/authController";
 import { journeyController } from "../controllers/journeyController";
+import { adminController } from "../controllers/adminController";
 import { errorCatcher as er } from "../middleware/errorCatcher";
 
 export const router = Router();
 
 router.get("/", mainController.home);
 
-// router.get("/admin/dashboard", mainController.dashboard);
+router.get("/admin/dashboard", adminController.dashboard);
 
 router.get("/register", er(authController.showRegister));
 router.post("/register", er(authController.register));

@@ -1,0 +1,23 @@
+<div class="column is-half is-offset-one-quarter">
+<h1 class="title has-text-centered has-text-white">Liste des Utilisateurs</h1>
+<table class="table is-fullwidth is-striped is-hoverable">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nom</th>
+            <th>Email</th>
+            <th>Rôle</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% data.users.forEach(user => { %>
+            <tr>
+                <td><%= user.email %></td>
+                <td><%= user.firstname %></td>
+                <td><%= user.lastname %></td>
+                <td><%= user.role_id %></td>
+            </tr>
+        <% }); %>
+    </tbody>
+</table>
+</div>

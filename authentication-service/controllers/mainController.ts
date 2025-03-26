@@ -30,6 +30,7 @@ export const mainController = {
 			return res.status(201).json({ token, user });
 		} catch (error: any) {
 			if (error.response.status === 404) {
+				console.error(error.response);
 				return res.status(400).json({ message: "Invalid credentials" });
 			}
 
