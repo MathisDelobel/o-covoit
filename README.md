@@ -1,12 +1,14 @@
-# Backend Covoiturage - Microservices
+# Application O-covoit - Microservices
 
 Application en développement
 
 ## Description
 
-Ce projet est un backend pour une application de covoiturage imaginaire, construite en utilisant une architecture microservices. Chaque service est isolé, ce qui permet une grande modularité et facilite la gestion de l'évolutivité du projet.
+Ce projet est une application de covoiturage imaginaire, construite en utilisant une architecture microservices. 
 
 Le backend est développé avec **Node.js** et utilise **Docker** pour containeriser les différents services. L'architecture microservices permet de gérer les différents aspects de l'application, comme l'authentification, l'autorisation et la gestion des utilisateurs.
+
+Le frontend est containerisé dans le service main et utilise **Ejs** et **Bulma.css**.
 
 ## Installer le projet
 
