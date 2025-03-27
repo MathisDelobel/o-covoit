@@ -1,4 +1,4 @@
-# Apllication O-covoit - Microservices
+# Application O-covoit - Microservices
 
 Application en développement
 
