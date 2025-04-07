@@ -20,7 +20,7 @@ cd o-covoit
 
 ### 2. Créer les fichiers .env et les configuer
 
-### 3. Consruire et démarrer les services
+### 3. Construire et démarrer les services
 ```bash
 docker compose up -d --build
 ```
