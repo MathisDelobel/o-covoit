@@ -1,4 +1,3 @@
-import type { Request, Response } from "express";
 import { Router } from "express";
 import { controllerWrapper as cw } from "../controllers/wrapperController";
 import { userController } from "../controllers/userController";

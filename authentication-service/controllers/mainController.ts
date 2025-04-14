@@ -40,7 +40,6 @@ export const mainController = {
 
 	register: async (req: Request, res: Response) => {
 		const { firstname, lastname, email, password, role_id } = req.body;
-		console.log(req.body);
 
 		// Validation des données
 		if (!firstname || !lastname || !email || !password || !role_id) {

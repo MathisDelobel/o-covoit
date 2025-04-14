@@ -32,6 +32,14 @@ app.set("view engine", "ejs");
 app.set("views", "src/views");
 app.use(express.static("public"));
 
+//Pour la redirection vers la page précédente après le login
+app.use((req, res, next) => {
+	if (!req.cookies.auth_token && req.path !== "/login") {
+		res.cookie("previousUrl", req.originalUrl, { httpOnly: true });
+	}
+	next();
+});
+
 // Middleware pour extraire le token et le passer aux vues et initialiser les flash messages
 app.use((req, res, next) => {
 	res.locals.auth_token = req.cookies?.auth_token;
@@ -82,9 +90,8 @@ app.use(async (req, res, next) => {
 			return res.redirect("/login");
 		}
 
-		const errorCode = error.response?.status || 500;
-		req.flash(error.response?.data?.error || "error", "Acces non autorisé");
-
+		const errorCode = error.response.status || 500;
+		req.flash("error", error.response.data.message || "Acces refusé");
 		res.status(errorCode).redirect("/");
 	}
 });

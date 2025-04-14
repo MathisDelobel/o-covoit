@@ -44,6 +44,38 @@ services:
       - ./api-users/data/seeding.js:/docker-entrypoint-initdb.d/seeding.js
       - users-data:/data/db
 
+  api-journey:
+    container_name: api-journey
+    build:
+      context: ./api-journey
+      dockerfile: Dockerfile
+    env_file:
+      - ./api-journey/.env
+    volumes:
+      - ./api-journey:/app
+      - /app/node_modules
+    ports:
+      - "3005:3000"
+    depends_on:
+      - journey-db
+
+  journey-db:
+    container_name: journey-db
+    image: postgres
+    restart: always
+    ports:
+      - "5432:5432"
+    env_file:
+      - .env
+    environment:
+       - POSTGRES_USER=${PG_USER}
+       - POSTGRES_PASSWORD=${PG_USER_PASSWORD}
+       - POSTGRES_DB=${PG_DB}
+    volumes:
+      - ./api-journey/data/:/docker-entrypoint-initdb.d
+      - journey-data:/data/db
+
+
   authentication-service:
     container_name: authentication-service
     build:
@@ -91,3 +123,4 @@ services:
 
 volumes:
   users-data:
+  journey-data:

@@ -11,9 +11,9 @@ interface RoutesConfig {
 }
 
 const routesConfig: RoutesConfig = {
-	// "/": {
-	// 	GET: [Role.DRIVER, Role.DRIVER, Role.ADMIN],
-	// },
+	"/journey/create": {
+		GET: [Role.DRIVER, Role.ADMIN],
+	},
 	"/admin/dashboard": {
 		GET: [Role.ADMIN],
 	},
